@@ -6,8 +6,6 @@ import android.graphics.drawable.Drawable
 import android.text.Spanned
 import android.text.style.ImageSpan
 import android.util.AttributeSet
-import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.buildSpannedString
 import androidx.core.view.doOnLayout
@@ -59,15 +57,16 @@ class BadgeTextView @JvmOverloads constructor(
         }
         doOnLayout {
             post {
-                val adjustCount = getAdjustCutCount()
-                val isEllipsis = adjustCount > 0
+                // 1. 현재 Text의 ellipsis 여부를 확인 후 Ellipsis가 true면 Ellipsis부분을 제외한 Text를 가져온다.
+                // 2. adjustCuntCount를  확인한다.
+                // 3. substring
 
-                Log.i("BadgeTextView", "isEllipsis : ${isEllipsis()}")
+                val removeText = if (isEllipsis()) getEllipsisRemoveText() else text
+                val adJustCount = getAdjustCutCount(removeText.toString())
 
-                val beforeText = if (isEllipsis) getEllipsisRemoveText(adjustCount)
-                else text
-
-                val addBadgeText = addBadgeIcon(isEllipsis, beforeText)
+                val subStringText = removeText.substring(0, removeText.length - adJustCount)
+                val isAdjustCutCount = adJustCount > 0
+                val addBadgeText = addBadgeIcon(isAdjustCutCount, subStringText)
                 addBadgeText?.let {
                     updateText = it
                     text = updateText
@@ -76,20 +75,46 @@ class BadgeTextView @JvmOverloads constructor(
         }
     }
 
+    private fun getAdjustCutCount(removeText: String): Int {
+
+
+
+        val start = layout.getLineStart(maxLines - 2)
+        val lastLineStartIndex = layout.getLineVisibleEnd(maxLines - 2)
+
+        // Compare를 구한다.
+        val compareFirstText = text.substring(start, lastLineStartIndex)
+
+        val compareBounds = Rect()
+        paint.getTextBounds(compareFirstText, 0, compareFirstText.length, compareBounds)
+
+        val compareText = removeText.substring(lastLineStartIndex, removeText.length)
+
+        val replaceTextBounds = Rect()
+        var adjustCutCount = -1
+        do {
+            adjustCutCount++
+            val subText =
+                compareText.substring(0, compareText.length - adjustCutCount)
+
+            val replacedText = subText + ELLIPSIS_PREFIX + IMAGE_SPAN_TEMP_VALUE
+            paint.getTextBounds(replacedText, 0, replacedText.length, replaceTextBounds)
+
+            val replacedTextWidth = replaceTextBounds.width()
+        } while (replacedTextWidth > compareBounds.width())
+
+        return adjustCutCount
+    }
+
     /**
      * ... 으로 제외 된 텍스트를 제외하고 값을 리턴한다.
      */
-    private fun getEllipsisRemoveText(adjustCount: Int): CharSequence {
-        val startIndex = 0
-        val maxTextIndex = layout.getLineVisibleEnd(maxLines - 1)
-
-        val endIndex =
-            maxTextIndex - adjustCount
-
-        return text.substring(startIndex, endIndex)
+    private fun getEllipsisRemoveText(): CharSequence {
+        val ellipsisCount = layout.getEllipsisCount(maxLines - 1)
+        return text.substring(0, text.length - ellipsisCount)
     }
 
-    fun isEllipsis(): Boolean {
+    private fun isEllipsis(): Boolean {
         return if (layout != null) {
             layout.getEllipsisCount(lineCount - 1) > 0
         } else false
@@ -100,7 +125,7 @@ class BadgeTextView @JvmOverloads constructor(
      * BadgeIcon을 추가한다.
      * @return BadgeIcon이 추가 된 값을 반환한다.
      */
-    private fun addBadgeIcon(isEllipsis: Boolean, text: CharSequence): CharSequence? {
+    private fun addBadgeIcon(isAdjustCutCount: Boolean, text: CharSequence): CharSequence? {
 
         badgeIcon?.let { icon ->
             // BadgeIcon Size 조절 (Text Size로 크기 조정)
@@ -111,7 +136,7 @@ class BadgeTextView @JvmOverloads constructor(
                 append(text)
 
                 // Ellipsis 여부를 확인 후 Prefix를 붙인다.잘리지 않는 글자면 Prefix를 붙이면 안된다.
-                if (isEllipsis)
+                if (isAdjustCutCount)
                     append(ELLIPSIS_PREFIX)
 
                 append(IMAGE_SPAN_TEMP_VALUE)
@@ -132,43 +157,6 @@ class BadgeTextView @JvmOverloads constructor(
         }
         return null
     }
-
-    /**
-     *
-     * 1. 맨 마지막줄 텍스트를 가져옴
-     * 2. 맨 마지막줄 텍스트가 표시될 width 계산
-     * 3. 맨 마지막줄 텍스트 + … + ImageIcon 텍스트가 합쳐졌을때 width 계산
-     * 4. 3번의 width가 한줄에 표시할수 있는 width를 넘으면
-     * 5. 한줄에 표시할 수 있는 width보다 작아질때까지 뒤에서부터 한글자씩 빼면서 계산
-     * 6. 4번에서 한글자씩 뺀 count를 구함
-     * 7. 위의 과정에서 조정된 count만큼 실제 원본 텍스트에서 뺀뒤에 더보기 텍스트 붙임
-     */
-    private fun getAdjustCutCount(): Int {
-
-        // 1. 맨 마지막줄 텍스트를 가져온다.
-        val lastLineStartIndex = layout.getLineVisibleEnd(maxLines - 2)
-        val lastLineEndIndex = layout.getLineVisibleEnd(maxLines - 1)
-        val lastLineText = text.substring(lastLineStartIndex, lastLineEndIndex)
-
-        val bounds = Rect()
-        paint.getTextBounds(lastLineText, 0, lastLineText.length, bounds)
-
-        var adjustCutCount = -1
-        do {
-            adjustCutCount++
-            val subText =
-                lastLineText.substring(0, lastLineText.length - adjustCutCount)
-            val replacedText = subText + ELLIPSIS_PREFIX + IMAGE_SPAN_TEMP_VALUE
-            paint.getTextBounds(replacedText, 0, replacedText.length, bounds)
-            val replacedTextWidth = bounds.width()
-        } while (replacedTextWidth > width)
-
-        return adjustCutCount
-    }
-    // 1. ellisis 제외된 텍스트를 가져온다.
-    // 2. 제외 된 텍스트 길이와 ...뱃을 더한 길이를 비교한다.
-    // 3. ...뱃을 더한 길이가 낮아질때가지 갯수를 카운팅한다.
-
 
     companion object {
         private const val ELLIPSIS_PREFIX = "..."
