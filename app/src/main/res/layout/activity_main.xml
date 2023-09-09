@@ -1,75 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingStart="32dp"
-    android:paddingEnd="32dp"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <com.tami.example.BadgeTextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously. Coroutines were added to Kotlin in version 1.3 and are based on established concepts from other languages."
-        android:textSize="32sp"
-        app:badgeIcon="@drawable/ic_new"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:showBadge="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        tools:context=".MainActivity">
 
 
-    <com.tami.example.BadgeTextView
-        android:id="@+id/test2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="가나다라마바사아자차카타파하도레미파솔라시도레미파솔라시도레미파솔라시도시라솔라"
-        android:textSize="24sp"
-        app:badgeIcon="@drawable/ic_new"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously. Coroutines were added to Kotlin in version 1.3 and are based on established concepts from other languages."
+            android:textSize="20sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
 
-    <com.tami.example.BadgeTextView
-        android:id="@+id/test3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="도레미파솔라시도레미파솔라시도레미파솔라시도"
-        android:textSize="24sp"
-        app:badgeIcon="@drawable/ic_new"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:showBadge="true" />
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="You should hoist UI state to the lowest common ances           tor between all the composables that read and write it. You should keep state closest to where it is consumed. From the state owner, expose to consumers immutable state and events to modify the state."
+            android:textSize="24sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
 
-    <com.tami.example.BadgeTextView
-        android:id="@+id/test4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="도레미파솔라시"
-        android:textSize="24sp"
-        app:badgeIcon="@drawable/ic_new"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:showBadge="true" />
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하"
+            android:textSize="24sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
 
-</LinearLayout>
+
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="가나다라마바사아자차카타파하"
+            android:textSize="24sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
+
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="가나다라마바사아"
+            android:textSize="24sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
+
+
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Google은 Google I/O 2019에서 Android 개발이 점차 Kotlin 우선으로 될 것이라고 발표했으며 이 약속을 위해 노력해 왔습니다. Kotlin은 일반적인 코드 오류를 줄이고 기존 앱에 쉽게 통합되는, 간결하면서도 표현력이 높은 프로그래밍 언어입니다. Android 앱을 빌드하려면 Kotlin으로 시작하여 업계 최고의 기능을 활용하는 것이 좋습니다."
+            android:textSize="24sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
+
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="도레미파솔라시도레미파솔라시도레미파솔라시도"
+            android:textSize="24sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
+
+        <com.tami.example.BadgeTextView
+            android:id="@+id/test4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="도레미파솔라시"
+            android:textSize="24sp"
+            app:badgeIcon="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showBadge="true" />
+
+
+    </LinearLayout>
+
+</ScrollView>
