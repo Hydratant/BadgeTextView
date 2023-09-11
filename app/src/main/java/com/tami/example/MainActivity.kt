@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
         text?.let {
             it.isShowBadge = true
         }
-
     }
 }
 
