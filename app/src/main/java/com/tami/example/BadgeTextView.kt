@@ -67,11 +67,12 @@ class BadgeTextView @JvmOverloads constructor(
     }
 
     private fun submitBadgeIconText() {
-        if (isInvisible || text == null || text.isEmpty() || badgeText == text) {
-            return
-        }
+        if (isDuplicateText()) return
         doOnLayout {
             post {
+                // 같은 Text 중복 여부 확인
+                if (isDuplicateText()) return@post
+
                 // 현재 Text의 ellipsis 여부를 확인 후 Ellipsis가 true면 Ellipsis부분을 제외한 Text를 가져온다.
                 val checkEllipsisText = if (isEllipsis()) getEllipsisRemoveText() else text
 
@@ -88,6 +89,13 @@ class BadgeTextView @JvmOverloads constructor(
                 }
             }
         }
+    }
+
+    private fun isDuplicateText(): Boolean {
+        if (isInvisible || text == null || text.isEmpty() || badgeText == text) {
+            return true
+        }
+        return false
     }
 
     /**
